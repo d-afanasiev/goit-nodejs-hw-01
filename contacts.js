@@ -9,22 +9,57 @@ function listContacts() {
     if (error) {
       console.error(error);
     }
-    console.log(data);
+    const contact = JSON.parse(data);
+    console.log("listContacts: ", contact);
   });
 }
 
 function getContactById(contactId) {
-  // ...твой код
+  fs.readFile(`${contactsPath}/db/contacts.json`, "utf8", (error, data) => {
+    if (error) {
+      console.error(error);
+    }
+
+    const contacts = JSON.parse(data);
+
+    const contact = contacts.find((contact) => contact.id === contactId);
+    console.log("getContactById: ", contact);
+  });
 }
 
 function removeContact(contactId) {
-  // ...твой код
+  fs.readFile(`${contactsPath}/db/contacts.json`, "utf8", (error, data) => {
+    if (error) {
+      console.error(error);
+    }
+
+    const contacts = JSON.parse(data);
+
+    const contact = contacts.filter((contact) => contact.id !== contactId);
+    console.log("removeContact: ", contact);
+  });
 }
 
 function addContact(name, email, phone) {
-  // ...твой код
+  fs.readFile(`${contactsPath}/db/contacts.json`, "utf8", (error, data) => {
+    if (error) {
+      console.error(error);
+    }
+
+    const contacts = JSON.parse(data);
+
+    const currentContact = { id: contacts.length + 1, name, email, phone };
+
+    const contact = [...contacts, currentContact];
+    console.log("addContact: ", contact);
+  });
 }
 
-listContacts();
+module.exports = {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+};
 
 console.log(contactsPath);
