@@ -3,7 +3,6 @@ const fs = require("fs");
 
 const contactsPath = path.resolve("");
 
-// TODO: задокументировать каждую функцию
 function listContacts() {
   fs.readFile(`${contactsPath}/db/contacts.json`, "utf8", (error, data) => {
     if (error) {
@@ -22,7 +21,9 @@ function getContactById(contactId) {
 
     const contacts = JSON.parse(data);
 
-    const contact = contacts.find((contact) => contact.id === contactId);
+    const contact = contacts.find(
+      (contact) => contact.id === parseInt(contactId)
+    );
     console.log("getContactById: ", contact);
   });
 }
@@ -35,7 +36,9 @@ function removeContact(contactId) {
 
     const contacts = JSON.parse(data);
 
-    const contact = contacts.filter((contact) => contact.id !== contactId);
+    const contact = contacts.filter(
+      (contact) => contact.id !== parseInt(contactId)
+    );
     console.log("removeContact: ", contact);
   });
 }
