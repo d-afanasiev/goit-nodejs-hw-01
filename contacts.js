@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
 
 const contactsPath = path.resolve("");
 
@@ -24,6 +25,7 @@ function getContactById(contactId) {
     const contact = contacts.find(
       (contact) => contact.id === parseInt(contactId)
     );
+
     console.log("getContactById: ", contact);
   });
 }
@@ -39,6 +41,13 @@ function removeContact(contactId) {
     const contact = contacts.filter(
       (contact) => contact.id !== parseInt(contactId)
     );
+    fs.writeFile(
+      `${contactsPath}/db/contacts.json`,
+      JSON.stringify(contact),
+      (err) => {
+        if (err) throw err;
+      }
+    );
     console.log("removeContact: ", contact);
   });
 }
@@ -51,9 +60,16 @@ function addContact(name, email, phone) {
 
     const contacts = JSON.parse(data);
 
-    const currentContact = { id: contacts.length + 1, name, email, phone };
+    const currentContact = { id: uuidv4(), name, email, phone };
 
     const contact = [...contacts, currentContact];
+    fs.writeFile(
+      `${contactsPath}/db/contacts.json`,
+      JSON.stringify(contact),
+      (err) => {
+        if (err) throw err;
+      }
+    );
     console.log("addContact: ", contact);
   });
 }
