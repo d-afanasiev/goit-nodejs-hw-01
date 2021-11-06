@@ -10,7 +10,7 @@ function listContacts() {
       console.error(error);
     }
     const contact = JSON.parse(data);
-    console.log("listContacts: ", contact);
+    console.table(contact);
   });
 }
 
@@ -26,7 +26,7 @@ function getContactById(contactId) {
       (contact) => contact.id === parseInt(contactId)
     );
 
-    console.log("getContactById: ", contact);
+    console.table(contact);
   });
 }
 
@@ -48,7 +48,7 @@ function removeContact(contactId) {
         if (err) throw err;
       }
     );
-    console.log("removeContact: ", contact);
+    console.table(contact);
   });
 }
 
@@ -70,7 +70,7 @@ function addContact(name, email, phone) {
         if (err) throw err;
       }
     );
-    console.log("addContact: ", contact);
+    console.table(contact);
   });
 }
 
