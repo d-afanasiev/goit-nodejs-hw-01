@@ -15,7 +15,11 @@ function getContactById(contactId) {
       (contact) => contact.id === parseInt(contactId)
     );
 
-    console.table(contact);
+    if (!contact) {
+      console.log("Contact with such ID not found!");
+    } else {
+      console.table(contact);
+    }
   });
 }
 
