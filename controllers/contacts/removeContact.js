@@ -14,14 +14,19 @@ function removeContact(contactId) {
     const contact = contacts.filter(
       (contact) => contact.id !== parseInt(contactId)
     );
-    fs.writeFile(
-      `${contactsPath}/db/contacts.json`,
-      JSON.stringify(contact),
-      (err) => {
-        if (err) throw err;
-      }
-    );
-    console.table(contact);
+
+    if (contact.length === contacts.length) {
+      console.log("Contact with such ID not found!");
+    } else {
+      fs.writeFile(
+        `${contactsPath}/db/contacts.json`,
+        JSON.stringify(contact),
+        (err) => {
+          if (err) throw err;
+        }
+      );
+      console.table(contact);
+    }
   });
 }
 
